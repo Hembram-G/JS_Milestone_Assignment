@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple To-Do App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #333;
+        }
+        .todo-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+        }
+        input {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+        }
+        li:last-child {
+            border-bottom: none;
+        }
+        .delete-btn {
+            background-color: #ff4d4d;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .delete-btn:hover {
+            background-color: #ff1a1a;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>To-Do List</h1>
+    <div class="todo-container">
+        <input type="text" id="todoInput" placeholder="Add a new to-do">
+        <button id="addTodoButton">Add To-Do</button>
+        <ul id="todoList"></ul>
+    </div>
+
+    <script>
+        // Get references to the input field, button, and the list
+        const todoInput = document.getElementById('todoInput');
+        const addTodoButton = document.getElementById('addTodoButton');
+        const todoList = document.getElementById('todoList');
+
+        // Function to add a new to-do item
+        function addTodo() {
+            // Get the value of the input field
+            const todoText = todoInput.value.trim();
+
+            // Only add the to-do if the input is not empty
+            if (todoText !== '') {
+                // Create a new list item
+                const listItem = document.createElement('li');
+
+                // Create a span to hold the to-do text
+                const todoSpan = document.createElement('span');
+                todoSpan.textContent = todoText;
+
+                // Create a delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.className = 'delete-btn';
+
+                // Add an event listener to the delete button to remove the list item
+                deleteButton.addEventListener('click', function() {
+                    todoList.removeChild(listItem);
+                });
+
+                // Append the to-do text and delete button to the list item
+                listItem.appendChild(todoSpan);
+                listItem.appendChild(deleteButton);
+
+                // Add the list item to the to-do list
+                todoList.appendChild(listItem);
+
+                // Clear the input field
+                todoInput.value = '';
+            }
+        }
+
+        // Add event listener to the button to add a new to-do item
+        addTodoButton.addEventListener('click', addTodo);
+
+        // Add event listener to the input field to handle "Enter" key press
+        todoInput.addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                addTodo();
+            }
+        });
+    </script>
+
+</body>
+</html>

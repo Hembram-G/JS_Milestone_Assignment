@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scroll Progress Bar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 2000px; /* Increase the height for scrolling effect */
+            font-family: Arial, sans-serif;
+        }
+        .progress-container {
+            position: fixed;
+            width: 100%;
+            height: 8px;
+            top: 0;
+            left: 0;
+            background-color: #f3f3f3;
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0;
+            background-color: #4caf50;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <script>
+        window.onscroll = function() {
+            const progressBar = document.getElementById('progressBar');
+            const totalHeight = document.body.scrollHeight - window.innerHeight;
+            const scrollPosition = window.pageYOffset;
+            const scrollPercentage = (scrollPosition / totalHeight) * 100;
+            progressBar.style.width = scrollPercentage + '%';
+        };
+    </script>
+
+</body>
+</html>

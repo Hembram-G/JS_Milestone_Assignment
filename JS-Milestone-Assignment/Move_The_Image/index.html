@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Move Image with Arrow Keys</title>
+    <style>
+        body {
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            background-color: #f0f0f0;
+        }
+        img {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- <img src="https://via.placeholder.com/100" id="movableImage" alt="Movable Image"> -->
+    <img src="./assets/download.png" id="movableImage" alt="Movable Image">
+
+
+    <script>
+        const image = document.getElementById('movableImage');
+        let position = { top: window.innerHeight / 2 - 50, left: window.innerWidth / 2 - 50 };
+        const step = 10;
+
+        function moveImage(event) {
+            switch(event.keyCode) {
+                case 37: // Left arrow
+                    position.left = Math.max(0, position.left - step);
+                    break;
+                case 38: // Up arrow
+                    position.top = Math.max(0, position.top - step);
+                    break;
+                case 39: // Right arrow
+                    position.left = Math.min(window.innerWidth - image.width, position.left + step);
+                    break;
+                case 40: // Down arrow
+                    position.top = Math.min(window.innerHeight - image.height, position.top + step);
+                    break;
+            }
+            image.style.top = position.top + 'px';
+            image.style.left = position.left + 'px';
+        }
+
+        document.addEventListener('keydown', moveImage);
+
+        // Initial positioning
+        image.style.top = position.top + 'px';
+        image.style.left = position.left + 'px';
+    </script>
+
+</body>
+</html>
